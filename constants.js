@@ -1,4 +1,4 @@
-import { TasksIcon, HabitsIcon, ScheduleIcon, TimerIcon, JournalIcon, SparklesIcon, ClockIcon, CalculatorIcon, WeatherIcon, AmbianceIcon, SettingsIcon, GridIcon } from './components/icons/Icons.jsx';
+import { TasksIcon, HabitsIcon, ScheduleIcon, TimerIcon, JournalIcon, SparklesIcon, ClockIcon, CalculatorIcon, WeatherIcon, AmbianceIcon, SettingsIcon, GridIcon } from './components/icons/Icons.js';
 
 export const WIDGET_HEADER_HEIGHT = 32; // h-8 in Widget.jsx is 2rem = 32px
 export const DOCK_AREA_HEIGHT = 100; // Account for dock and bottom margin
