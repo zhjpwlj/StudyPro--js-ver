@@ -1,11 +1,17 @@
-<div align="center">
+# StudyPro - All-in-One Productivity Platform
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+This is an integrated platform for learning, productivity, and life management, combining time tracking, task management, Pomodoro focus, and an AI-powered assistant to streamline your workflow and maximize your potential.
 
-  <h1>Built with AI Studio</h2>
+## Deployment to GitHub Pages
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+This project is configured for easy deployment to GitHub Pages using GitHub Actions.
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+To deploy your application, follow these steps:
 
-</div>
+1.  **Push your code** to the `main` branch of your GitHub repository.
+2.  In your repository, go to **Settings** > **Pages**.
+3.  Under the "Build and deployment" section, select **GitHub Actions** as the source.
+4.  The GitHub Actions workflow included in this repository (`.github/workflows/deploy.yml`) will automatically build and deploy your site.
+5.  Once the action completes, your site will be live at the URL provided in the Pages settings (e.g., `https://<your-username>.github.io/<your-repository-name>/`).
+
+The site will automatically redeploy every time you push a change to the `main` branch.

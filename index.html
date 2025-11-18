@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyPro - Your Desktop for Life</title>
+    
+    <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react-dom/client": "https://aistudiocdn.com/react-dom@^19.2.0/client",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+  }
+}
+</script>
+    
+    <!-- CRITICAL: Add Babel for in-browser TSX/JSX transpilation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                "50": "rgb(var(--color-primary-50) / <alpha-value>)",
+                "100": "rgb(var(--color-primary-100) / <alpha-value>)",
+                "200": "rgb(var(--color-primary-200) / <alpha-value>)",
+                "300": "rgb(var(--color-primary-300) / <alpha-value>)",
+                "400": "rgb(var(--color-primary-400) / <alpha-value>)",
+                "500": "rgb(var(--color-primary-500) / <alpha-value>)",
+                "600": "rgb(var(--color-primary-600) / <alpha-value>)",
+                "700": "rgb(var(--color-primary-700) / <alpha-value>)",
+                "800": "rgb(var(--color-primary-800) / <alpha-value>)",
+                "900": "rgb(var(--color-primary-900) / <alpha-value>)",
+                "950": "rgb(var(--color-primary-950) / <alpha-value>)"
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        /* Default Wallpapers */
+        --wallpaper-light: url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2940&auto=format&fit=crop');
+        --wallpaper-dark: url('https://images.unsplash.com/photo-1484589065579-248aad0d8b13?q=80&w=2859&auto=format&fit=crop');
+      }
+
+      /* Default Theme: Blue */
+      html, .theme-blue {
+        --color-primary-50: 239 246 255;
+        --color-primary-100: 219 234 254;
+        --color-primary-200: 191 219 254;
+        --color-primary-300: 147 197 253;
+        --color-primary-400: 96 165 250;
+        --color-primary-500: 59 130 246;
+        --color-primary-600: 37 99 235;
+        --color-primary-700: 29 78 216;
+        --color-primary-800: 30 64 175;
+        --color-primary-900: 30 58 138;
+        --color-primary-950: 23 37 84;
+      }
+      
+      .theme-rose {
+        --color-primary-50: 255 241 242;
+        --color-primary-100: 255 228 230;
+        --color-primary-200: 254 205 211;
+        --color-primary-300: 253 164 175;
+        --color-primary-400: 251 113 133;
+        --color-primary-500: 244 63 94;
+        --color-primary-600: 225 29 72;
+        --color-primary-700: 190 18 60;
+        --color-primary-800: 159 18 57;
+        --color-primary-900: 136 19 55;
+        --color-primary-950: 76 5 25;
+      }
+
+      .theme-emerald {
+        --color-primary-50: 236 253 245;
+        --color-primary-100: 209 250 229;
+        --color-primary-200: 167 243 208;
+        --color-primary-300: 110 231 183;
+        --color-primary-400: 52 211 153;
+        --color-primary-500: 16 185 129;
+        --color-primary-600: 5 150 105;
+        --color-primary-700: 4 120 87;
+        --color-primary-800: 6 95 70;
+        --color-primary-900: 6 78 59;
+        --color-primary-950: 2 44 34;
+      }
+
+
+      html, body, #root {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        overscroll-behavior: none; /* Prevent pull-to-refresh and other gestures */
+      }
+      .wallpaper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: var(--wallpaper-light);
+        background-size: cover;
+        background-position: center;
+        z-index: -1;
+        transition: background-image 0.5s ease-in-out;
+      }
+      .dark .wallpaper {
+        background-image: var(--wallpaper-dark);
+      }
+      .top-bar {
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+      .dark .top-bar {
+        background-color: rgba(20, 20, 20, 0.5);
+      }
+      .dock-container {
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        background-color: rgba(255, 255, 255, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .dark .dock-container {
+         background-color: rgba(20, 20, 20, 0.3);
+         border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .dock-item-container:hover .dock-item {
+        transform: scale(1.4) translateY(-10px);
+        margin: 0 0.75rem;
+      }
+      .dock-item-container:hover .dock-item-container-sibling {
+        transform: scale(1.2) translateY(-5px);
+        margin: 0 0.5rem;
+      }
+      .dock-item {
+        transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), margin 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .widget {
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        background-color: rgba(243, 244, 246, 0.75); /* bg-gray-100 with opacity */
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        resize: both;
+        overflow: hidden;
+      }
+       .dark .widget {
+        background-color: rgba(31, 41, 55, 0.75); /* dark:bg-gray-800 with opacity */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .widget-header {
+        cursor: move;
+      }
+      .resize-handle-br {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        right: 0;
+        bottom: 0;
+        cursor: se-resize;
+      }
+      .resize-handle-tr {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        right: 0;
+        top: 0;
+        cursor: nesw-resize;
+      }
+       .resize-handle-tl {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        left: 0;
+        top: 0;
+        cursor: nwse-resize;
+      }
+      .task-drop-indicator {
+        outline: 2px dashed #3b82f6; /* primary-500 */
+        outline-offset: -2px;
+        background-color: rgba(59, 130, 246, 0.1);
+        border-radius: 0.5rem; /* 8px */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wallpaper"></div>
+    <div id="root"></div>
+    <script type="text/babel" data-type="module" src="./index.tsx"></script>
+  </body>
+</html>

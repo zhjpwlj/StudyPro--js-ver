@@ -1,0 +1,8 @@
+{
+  "name": "Copy of StudyPro - JavaScript ver",
+  "description": "An integrated platform for learning, productivity, and life management, combining time tracking, task management, Pomodoro focus, and an AI-powered assistant to streamline your workflow and maximize your potential.",
+  "requestFramePermissions": [
+    "geolocation",
+    "microphone"
+  ]
+}
